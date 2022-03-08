@@ -7,188 +7,180 @@
 	</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
+<style>
+.button {
+  background-color: greenyellow;
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button1 {
+  background-color: blue;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button2 {
+  background-color: red;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+
+</style>
+	
 </head>
 <body>
 <h1>Teaching Behavior</h1>
 
-<div class="container" style="display: flex; height: 100px;">
-        <div style="width: 50%;">
-        	 <button id ="start" onclick="startBtn()">Reset</button>
+<button class="button1" id ="startBtn" onclick="startBtn()">Start</button>
+<button class="button2" id ="resetBtn" onclick="resetBtn()">Reset</button>
 <br>	
 <br>
+
+<p> Notes</p> 
+
 <textarea type="feedback" cols="40" rows = "5" id="fb"></textarea>
 <br>
 <br>
-<button id ="beh1" onclick="beh1()">beh1</button>
-<button id ="beh2" onclick="beh2()">beh2</button>
-<button id ="beh3" onclick="beh3()">beh3</button>
-<button id ="beh4" onclick="beh4()">beh4</button>
-<button id ="beh5" onclick="beh5()">beh5</button>
-<button id ="beh6" onclick="beh6()">beh6</button>
+<button class="button" id ="beh1" onclick="beha1()">beh1</button>
+<button class="button" id ="beh2" onclick="beha2()">beh2</button>
+
 <br>	
 <br>
-<p id="records"></p>
-<p id="b0">b0</p>
-<p id="b1">b1</p>
-<p id="b2">b2</p>
-
-
+<p id="reset"></p>
+<p id="b0"></p>
 <br>
- 
-            </div>
-            <div style="flex-grow: 1;"> 
-<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
 
-            </div>
-    </div>
+
+<button id ="downloadBtn" onclick="download_csv_file()">Download</button>
 
 </body>
 
 
 <script>
 
-var beh1_count=0; 
-var beh2_count=0; 
-var beh3_count=0; 
-var beh4_count=0; 
-var beh5_count=0;
-var beh6_count=0; 
 //now = new Date().getTime();
 //document.getElementById("b0").innerHTML=now
 
+var timeArray = [];
+var stateArray = [];
+var commentsArray =[];
+
+var time = "";
+var state= "";
+var comments = "";
+
+function resetBtn(){
+
+document.getElementById("b0").innerHTML = ""; 
+document.getElementById("reset").innerHTML = ""; 
+}
+
 function startBtn(){
-	beh1_count=performance.now()
-	beh2_count=0
-	beh3_count=0
-	beh4_count=0
-	beh5_count=0
-	beh6_count=0
-	// Get today's date and time
-  lastTime = new Date().getTime();
-  document.getElementById("b0").innerHTML=lastTime;
-  document.getElementById("b1").innerHTML=beh1_count
-  document.getElementById("b2").innerHTML=0
+	t = new Date().toLocaleTimeString()
+	timeArray.push(t);  
+	stateArray.push("start");  
+	commentsArray.push(document.getElementById("fb").value);
+	time = t;
+  state= "start";
+  comments = document.getElementById("fb").value;
+document.getElementById("b0").innerHTML = ""; 
+document.getElementById("reset").innerHTML = ""; 
+document.getElementById("reset").innerHTML = time + " " + state + " " + comments + "<br>";
+document.getElementById("fb").value=""; 		
+}
+
+function beha1(){
+	t = new Date().toLocaleTimeString()
+	timeArray.push(t);
+	stateArray.push("beh1");  
+	commentsArray.push(document.getElementById("fb").value);  
+
+	time = t;
+  state= "beh1";
+  comments = document.getElementById("fb").value;
+
 
 	update();
 }
 
-function beh1(){
-	nowTime = new Date().getTime();
-	//beh1_count=beh1_count + nowTime-lastTime;
-	beh1_count=performance.now()-beh1_count
-	document.getElementById("b1").innerHTML=beh1_count;
+function beha2(){
+	t = new Date().toLocaleTimeString()
+	timeArray.push(t);
+stateArray.push("beh2");    
+	commentsArray.push(document.getElementById("fb").value);
+
+	time = t;
+  state= "beh2";
+  comments = document.getElementById("fb").value;
+
+
 	update();
-	}
-
-function beh2(){
-	nowTime = new Date().getTime();
-	beh2_count=beh2_count + nowTime-lastTime;
-	document.getElementById("b2").innerHTML=beh2_count;
-	update();
-	}
-function beh3(){
-	beh3_count++
-	update()
-	}
-
-function beh4(){
-	beh4_count++
-	update()
-	}
-
-function beh5(){
-	beh5_count++
-	update()
-	}
-
-function beh6(){
-	beh6_count++
-	update()
-	}
-
-
-
-function update(){
-
-document.getElementById("records").innerHTML=
-document.getElementById("fb").value
-document.getElementById("fb").value=""
-charting();
-
-	}
-
-function checkFunction(){
-
-	bought_price = document.getElementById('boughtPrice').value;
-
-	amount_invested = document.getElementById('amountInvested').value;
-
+};
 	
+var text =""	
+function update(){
+text += time + " " + state + " " + comments + "<br><br>";
+document.getElementById("b0").innerHTML = text; 
+document.getElementById("fb").value="";
+csvFileData=[timeArray,stateArray,commentsArray]
 
-	function p_l_calc() {
-		btc_bought = amount_invested/bought_price;
-		current_worth = btc_bought * current_price
-		profit_loss = current_worth - amount_invested;
+csvFileData=transpose(csvFileData)
 
-		document.getElementById('qty').innerHTML="Quantity: " + Math.round(btc_bought *100)/100
-
-		document.getElementById('cp').innerHTML="Current Price: $" + current_price
-
-
-
-	}
-
-	loadDoc()
-			function loadDoc() {
-			  var xhttp = new XMLHttpRequest();
-			  xhttp.onreadystatechange = function() {
-			    if (this.readyState == 4 && this.status == 200) {
-			         current_price=JSON.parse(this.responseText)
-			         current_price= current_price.bitcoin.usd;
-			         p_l_calc();
-			         document.getElementById('pl').innerHTML="Profit/Loss: "+"$"+ Math.round(profit_loss *100)/100
-			         ;
-			         }
-			  };
-			  xhttp.open("GET","https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd", true);
-			  xhttp.send();
-			}
-
-
+console.log(csvFileData)
 }
 
-function charting(){
-var xValues = ["Behavior 1", "Behavior 2", "Behavior 3", "Behavior 4", "Behavior 5", 
-"Behavior 6"];
-var yValues = [beh1_count, beh2_count, beh3_count, beh4_count, beh5_count, beh6_count];
-var barColors = [
-  "#b91d47",
-  "#00aba9",
-  "#2b5797",
-  "#e8c3b9",
-  "#1e7145",
-  "yellow"
-];
-
-new Chart("myChart", {
-  type: "pie",
-  data: {
-    labels: xValues,
-    datasets: [{
-      backgroundColor: barColors,
-      data: yValues
-    }]
-  },
-  options: {
-    title: {
-      display: true,
-      text: "Teaching Behavior"
-    }
-  }
-})
-
+function transpose(matrix) {
+  return matrix[0].map((col, i) => matrix.map(row => row[i]));
 }
-;
+
+
+
+function download_csv_file() {
+
+    //define the heading for each row of the data
+    var csv = 'Date,Behavior,Comments\n';
+    
+    //merge the data with CSV
+    csvFileData.forEach(function(row) {
+            csv += row.join(',');
+            csv += "\n";
+    });
+ 
+    //display the created CSV data on the web browser 
+    document.write(csv);
+
+   
+    var hiddenElement = document.createElement('a');
+    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+    hiddenElement.target = '_blank';
+    
+    //provide the name for the CSV file to be downloaded
+    hiddenElement.download = 'Teaching Observation.csv';
+    hiddenElement.click();
+}
 
 </script>
 
