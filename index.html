@@ -9,14 +9,6 @@
 
 <style>
 
-#WrapAll {
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    overflow:hidden;
-}
 .button {
   background-color: greenyellow;
   border: none;
@@ -64,7 +56,7 @@
 <h1>Teaching Behavior</h1>
 
 <button class="button1" id ="startBtn" onclick="startBtn()">Start</button>
-<button class="button2" id ="resetBtn" onclick="resetBtn()">Reset</button>
+<button class="button2" id ="resetBtn" onclick="window.location.reload()">Reset</button>
 <br>	
 <br>
 
@@ -90,6 +82,21 @@
 
 <script>
 
+/* Get the documentElement (<html>) to display the page in fullscreen */
+var elem = document.documentElement;
+
+/* View in fullscreen */
+function openFullscreen() {
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.webkitRequestFullscreen) { /* Safari */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE11 */
+    elem.msRequestFullscreen();
+  }
+}
+
+
 //now = new Date().getTime();
 //document.getElementById("b0").innerHTML=now
 
@@ -101,13 +108,10 @@ var time = "";
 var state= "";
 var comments = "";
 
-function resetBtn(){
-var text=""
-document.getElementById("b0").innerHTML = ""; 
-document.getElementById("reset").innerHTML = ""; 
-}
+
 
 function startBtn(){
+	text = ""
 	t = new Date().toLocaleTimeString()
 	timeArray.push(t);  
 	stateArray.push("start");  
