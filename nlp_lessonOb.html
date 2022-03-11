@@ -7,6 +7,9 @@
         Teaching Behavior       
     </title>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<br>
+<br>
 <style>
 img { max-width: 100%; }
 .button {
@@ -26,7 +29,8 @@ img { max-width: 100%; }
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  background-color: #4CAF50;
+  background-color: #555555;
+  color: white;
 }
 
 .exportbutton{
@@ -44,46 +48,53 @@ img { max-width: 100%; }
 </head>
 <body>
 <h1>Teaching Behavior</h1>
-<p style="font-size:30px">Practice Organization</p> 
-<input class="button" type="button" id="beh1" value="Isolated technical skill practice" onclick="beh1()"/>
-<input class="button" type="button" id="beh2" value="Game Representative Skill" onclick="beh2()"/>
-<input class="button" type="button" id="beh3" value="Modified game" onclick="beh3()"/>
-<input class="button" type="button" id="beh4" value="Small sided game" onclick="beh4()"/>
-<input class="button" type="button" id="beh5" value="Regular play" onclick="beh5()"/>
-<br>
-<br>
-<input class="button" type="button" id="beh6" value="Repetitive task" onclick="beh6()"/>
-<input class="button" type="button" id="beh7" value="Room for variability" onclick="beh7()"/>
-<input class="button" type="button" id="beh8" value="Infusion of space variability" onclick="beh8()"/>
-<input class="button" type="button" id="beh9" value="Infusion of player variability" onclick="beh9()"/>
-<input class="button" type="button" id="beh10" value="Infusion of equipment variability" onclick="beh10()"/>
-<p style="font-size:30px">Instruction</p>
-<input class="button" type="button" id="beh11" value="Prescriptive instruction" onclick="beh11()"/>
-<input class="button" type="button" id="beh12" value="Use of analogy" onclick="beh12()"/>
-<input class="button" type="button" id="beh13" value="Movement forms" onclick="beh13()"/>
-<input class="button" type="button" id="beh14" value="Movement outcomes/effects" onclick="beh14()"/>
-<input class="button" type="button" id="beh15" value="Oral promotion of variability" onclick="beh15()"/>
-<p style="font-size:30px">Feedback</p>
-<input class="button" type="button" id="beh16" value="Prescriptive feedback" onclick="beh16()"/>
-<input class="button" type="button" id="beh17" value="Use of analogy" onclick="beh17()"/>
-<input class="button" type="button" id="beh18" value="Movement forms" onclick="beh18()"/>
-<input class="button" type="button" id="beh19" value="Movement outcomes/effects" onclick="beh19()"/>
-<input class="button" type="button" id="beh20" value="Feedback on variability" onclick="beh20()"/>
+<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
 <br>
 <br>
 <input class="updatebutton" type="button" id="Update" value="Update" onclick="update()"/>
+<br>
+<p style="font-size:30px">Practice Organization</p> 
+<input class="button" type="button" id="beh1" value="1. Isolated technical skill practice" onclick="beh1()"/>
+<input class="button" type="button" id="beh2" value="2. Game Representative Skill" onclick="beh2()"/>
+<input class="button" type="button" id="beh3" value="3. Modified game" onclick="beh3()"/>
+<input class="button" type="button" id="beh4" value="4. Small sided game" onclick="beh4()"/>
+<input class="button" type="button" id="beh5" value="5. Regular play" onclick="beh5()"/>
+<br>
+<br>
+<input class="button" type="button" id="beh6" value="6. Repetitive task" onclick="beh6()"/>
+<input class="button" type="button" id="beh7" value="7. Room for variability" onclick="beh7()"/>
+<input class="button" type="button" id="beh8" value="8. Infusion of space variability" onclick="beh8()"/>
+<input class="button" type="button" id="beh9" value="9. Infusion of player variability" onclick="beh9()"/>
+<br>
+<br>
+<input class="button" type="button" id="beh10" value="10. Infusion of equipment variability" onclick="beh10()"/>
+<br>
+<p style="font-size:30px">Instruction</p>
+<input class="button" type="button" id="beh11" value="11. Prescriptive instruction" onclick="beh11()"/>
+<input class="button" type="button" id="beh12" value="12. Use of analogy" onclick="beh12()"/>
+<input class="button" type="button" id="beh13" value="13. Movement forms" onclick="beh13()"/>
+<input class="button" type="button" id="beh14" value="14. Movement outcomes/effects" onclick="beh14()"/><br>
+<input class="button" type="button" id="beh15" value="15. Oral promotion of variability" onclick="beh15()"/>
+<br>
+<p style="font-size:30px">Feedback</p>
+<input class="button" type="button" id="beh16" value="16. Prescriptive feedback" onclick="beh16()"/><br>
+<input class="button" type="button" id="beh17" value="17. Use of analogy" onclick="beh17()"/>
+<input class="button" type="button" id="beh18" value="18. Movement forms" onclick="beh18()"/>
+<input class="button" type="button" id="beh19" value="19. Movement outcomes/effects" onclick="beh19()"/>
+<input class="button" type="button" id="beh20" value="20. Feedback on variability" onclick="beh20()"/>
+<br>
 <br>
 <br>
 <input class="exportbutton" type="button" id="Export Data" value="Export Data" onclick="download_csv_file()"/>
 <br>    
 <br>
-<p id="reset"></p>
-<p id="time"></p>
+
+
+
 <br>
 </body>
 
 <script>
-
 var beh1_state = 0
 var beh2_state = 0
 var beh3_state = 0
@@ -127,6 +138,27 @@ var beh17_stateArray = []
 var beh18_stateArray = []
 var beh19_stateArray = []
 var beh20_stateArray = []
+
+var beh1Total =0
+var beh2Total =0
+var beh3Total =0
+var beh4Total =0
+var beh5Total =0
+var beh6Total =0
+var beh7Total =0
+var beh8Total =0
+var beh9Total =0
+var beh10Total =0
+var beh11Total =0
+var beh12Total =0
+var beh13Total =0
+var beh14Total =0
+var beh15Total =0
+var beh16Total =0
+var beh17Total =0
+var beh18Total =0
+var beh19Total =0
+var beh20Total =0
 
 function beh1(){
 beh1_state=beh1_state+1
@@ -375,10 +407,31 @@ beh18_stateArray,
 beh19_stateArray,
 beh20_stateArray
 ];
+
+beh1Total = beh1_stateArray.reduce((x, y) => x + y);
+beh2Total = beh2_stateArray.reduce((x, y) => x + y);
+beh3Total = beh3_stateArray.reduce((x, y) => x + y);
+beh4Total = beh4_stateArray.reduce((x, y) => x + y);
+beh5Total = beh5_stateArray.reduce((x, y) => x + y);
+beh6Total = beh6_stateArray.reduce((x, y) => x + y);
+beh7Total = beh7_stateArray.reduce((x, y) => x + y);
+beh8Total = beh8_stateArray.reduce((x, y) => x + y);
+beh9Total = beh9_stateArray.reduce((x, y) => x + y);
+beh10Total = beh10_stateArray.reduce((x, y) => x + y);
+beh11Total = beh11_stateArray.reduce((x, y) => x + y);
+beh12Total = beh12_stateArray.reduce((x, y) => x + y);
+beh13Total = beh13_stateArray.reduce((x, y) => x + y);
+beh14Total = beh14_stateArray.reduce((x, y) => x + y);
+beh15Total = beh15_stateArray.reduce((x, y) => x + y);
+beh16Total = beh16_stateArray.reduce((x, y) => x + y);
+beh17Total = beh17_stateArray.reduce((x, y) => x + y);
+beh18Total = beh18_stateArray.reduce((x, y) => x + y);
+beh19Total = beh19_stateArray.reduce((x, y) => x + y);
+beh20Total = beh20_stateArray.reduce((x, y) => x + y);
+
 csvFileData=transpose(csvFileData)
 
-document.getElementById("time").innerHTML= csvFileData;
-
+charting();
 }
 
 
@@ -413,6 +466,34 @@ function download_csv_file() {
     hiddenElement.click();
 }
 
+
+function charting(){
+var xValues = ["Behavior 1", "Behavior 2", "Behavior 3", "Behavior 4", "Behavior 5", 
+"Behavior 6", "Behavior 7", "Behavior 8", "Behavior 9", "Behavior 10", "Behavior 11", 
+"Behavior 12", "Behavior 13", "Behavior 14", "Behavior 15", "Behavior 16", "Behavior 17", 
+"Behavior 18", "Behavior 19", "Behavior 20"];
+var yValues = [beh1Total,beh2Total,beh3Total,beh4Total,beh5Total,beh6Total, beh7Total,beh7Total,beh9Total,beh10Total,beh11Total,beh12Total, beh13Total,beh14Total,beh15Total,beh16Total,beh17Total,beh18Total,beh19Total,beh20Total];
+var barColors = ['#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#46f0f0', '#f032e6', '#bcf60c', '#fabebe', '#008080', '#e6beff', '#9a6324', '#fffac8', '#800000', '#aaffc3', '#808000', '#ffd8b1', '#000075', '#808080', '#ffffff', '#000000'
+];
+
+new Chart("myChart", {
+  type: "pie",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "Teaching Behavior"
+    }
+  }
+})
+
+}
 
 </script>
 </html>
