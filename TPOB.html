@@ -44,6 +44,12 @@ c=c+1;
 t=setTimeout("timedCount()",1000);
 }
 
+function endTimer()
+{
+clearTimeout(t);
+document.getElementById("startBtn").disabled = false;
+document.getElementById("endBtn").disabled = true;
+}
 
 function onTimer()
 { 
@@ -216,6 +222,7 @@ new Chart("myChart", {
 <br>
 <p id="rollingTime"></p>
 <input id="startBtn" type="button" value="Start" onclick="onTimer()" />
+<input id="endBtn" type="button" value="End" onclick="endTimer()" />
 <br>
 <br>
 <p>Comments:</p> 
