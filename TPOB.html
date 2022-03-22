@@ -8,6 +8,38 @@
 
 
 <head>
+
+<style type="text/css">
+  .button {
+  background-color: #e7e7e7; 
+  color: black;
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.buttonStart{
+  background-color: #4CAF50; /* Green */
+}
+
+.buttonEnd{
+  background-color: #f44336; /* Red */
+}
+
+.buttonReset{
+  background-color: #008CBA; /* Blue */
+}
+
+.button:active {
+           
+            box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+            /* Lowering the shadow */
+        }
+
+</style>  
 <script type="text/javascript">
 var c=0;
 var t;
@@ -227,9 +259,9 @@ new Chart("myChart", {
 <canvas id="myChart" style="width:50%;max-width:600px"></canvas>
 <br>
 <p id="rollingTime">Timer: 0 seconds</p>
-<input id="startBtn" type="button" value="Start" onclick="onTimer()" />
-<input id="endBtn" type="button" value="End" onclick="endTimer()" />
-<input id="resetBtn" type="button" value="Reset" onclick="reset()" />
+<input id="startBtn" type="button" class="button buttonStart" value="Start" onclick="onTimer()" />
+<input id="endBtn" type="button" class="button buttonEnd" value="End" onclick="endTimer()" />
+<input id="resetBtn" type="button" class="button buttonReset" value="Reset" onclick="reset()" />
 
 <br>
 <br>
@@ -237,22 +269,22 @@ new Chart("myChart", {
 <textarea type="feedback" cols="40" rows = "5" id="fb"></textarea>
 <br>
 <br>
-<input type="button" value="Management" onclick="timeStampB1()" />
+<input type="button" class="button" value="Management" onclick="timeStampB1()" />
 <br>
 <br>
-<input type="button" value="Transition" onclick="timeStampB2()" />
+<input type="button" class="button" value="Transition" onclick="timeStampB2()" />
 <br>
 <br>
-<input type="button" value="Waiting" onclick="timeStampB3()" />
+<input type="button" class="button" value="Waiting" onclick="timeStampB3()" />
 <br>
 <br>
-<input type="button" value="Knowledge" onclick="timeStampB4()" />
+<input type="button" class="button" value="Knowledge" onclick="timeStampB4()" />
 <br>
 <br>
-<input type="button" value="Activity" onclick="timeStampB5()" />
+<input type="button" class="button" value="Activity" onclick="timeStampB5()" />
 <br>
 <br>
-<input type="button" value="Off task" onclick="timeStampB6()" />
+<input type="button" class="button" value="Off task" onclick="timeStampB6()" />
 <br>
 <br>
 <p id="data"></p> 
