@@ -37,6 +37,10 @@ charting(1,1,1,1,1,1);
 }
 */
 
+function reset(){
+location.reload();
+}
+
 function timedCount()
 {
 document.getElementById('rollingTime').innerHTML= "Timer: " + c + ' seconds';
@@ -47,20 +51,22 @@ t=setTimeout("timedCount()",1000);
 function endTimer()
 {
 clearTimeout(t);
-document.getElementById("startBtn").disabled = false;
+document.getElementById("startBtn").disabled = true;
 document.getElementById("endBtn").disabled = true;
+document.getElementById("resetBtn").disabled = false;
 }
 
 function onTimer()
 { 
  document.getElementById("startBtn").disabled = true;
-
+document.getElementById("resetBtn").disabled = true;
   if (!timer_is_on)
   {
   timer_is_on=1;
   timedCount();
   }
 }
+
 
 function httpGet(theUrl)
 {
@@ -220,9 +226,11 @@ new Chart("myChart", {
 <body onload="onStart()">   
 <canvas id="myChart" style="width:50%;max-width:600px"></canvas>
 <br>
-<p id="rollingTime"></p>
+<p id="rollingTime">Timer: 0 seconds</p>
 <input id="startBtn" type="button" value="Start" onclick="onTimer()" />
 <input id="endBtn" type="button" value="End" onclick="endTimer()" />
+<input id="resetBtn" type="button" value="Reset" onclick="reset()" />
+
 <br>
 <br>
 <p>Comments:</p> 
