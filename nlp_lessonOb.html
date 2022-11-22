@@ -448,7 +448,7 @@ function download_csv_file() {
     update()
 
     //define the heading for each row of the data
-    var csv = 'TimeStamp,Isolated technical skill practice,Beh2,Beh3,Beh4,Beh5,Beh6,Beh7,Beh8,Beh9,Beh10,Beh11,Beh12,Beh13,Beh14,Beh15,Beh16,Beh17,Beh18,Beh19,Beh20\n';
+    var csv = 'TimeStamp,Isolated technical skill practice,Game Representative Skill,Modified game,Small sided game,Regular play,Repetitive task,Room for variability,Infusion of space variability,Infusion of player variability,Infusion of equipment variability,Prescriptive instruction,Use of analogy,Movement forms,Movement outcomes/effects,Oral promotion of variability,Prescriptive feedback,Use of analogy,Movement forms,Movement outcomes/effects,Feedback on variability\n';
     
     //merge the data with CSV
     csvFileData.forEach(function(row) {
@@ -471,10 +471,10 @@ function download_csv_file() {
 
 
 function charting(){
-var xValues = ["Isolated technical skill practice", "Behavior 2", "Behavior 3", "Behavior 4", "Behavior 5", 
-"Behavior 6", "Behavior 7", "Behavior 8", "Behavior 9", "Behavior 10", "Behavior 11", 
-"Behavior 12", "Behavior 13", "Behavior 14", "Behavior 15", "Behavior 16", "Behavior 17", 
-"Behavior 18", "Behavior 19", "Behavior 20"];
+var xValues = ["Isolated technical skill practice", "Game Representative Skill", "Modified game", "Small sided game", "Regular play", 
+"Repetitive task", "Room for variability", "Infusion of space variability", "Infusion of player variability", "Infusion of equipment variability", "Prescriptive instruction", 
+"Use of analogy", "Movement forms", "Movement outcomes/effects", "Oral promotion of variability", "Prescriptive feedback", "Use of analogy", 
+"Movement forms", "Movement outcomes/effects", "BFeedback on variability"];
 var yValues = [beh1Total,beh2Total,beh3Total,beh4Total,beh5Total,beh6Total, beh7Total,beh7Total,beh9Total,beh10Total,beh11Total,beh12Total, beh13Total,beh14Total,beh15Total,beh16Total,beh17Total,beh18Total,beh19Total,beh20Total];
 var barColors = ['#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#46f0f0', '#f032e6', '#bcf60c', '#fabebe', '#008080', '#e6beff', '#9a6324', '#fffac8', '#800000', '#aaffc3', '#808000', '#ffd8b1', '#000075', '#808080', '#ffffff', '#000000'
 ];
